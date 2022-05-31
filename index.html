@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5977/5977590.png">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body class="bg-light">
+    <h1 class="h1 text-center fw-bold text-primary m-0 mt-2">Netflix</h1>
+    <main>
+        <div class="container-xl pt-5">
+            <div class="row">
+                <div class="col-md-4 md-4">
+                    <div class="container">
+                        <section class="mb-4">
+                            <h2 class="visually-hidden">Movie search form</h2>
+                            <form class="js-search-form" action="https://echo.htmlacademy.ru" method="GET" autocomplete="false">
+                                <div class="form-group">
+                                    <input class="form-control my-2 js-search-form__title-input" type="search" name="title" placeholder="Search" aria-label="Title">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control my-2 js-search-form__rating-input" type="number" step="any" name="min_rating" placeholder="7.5" value="6" aria-label="Minimum rating">
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control my-2 js-search-form__genre-select" name="genre" aria-label="Genre">
+                    <option value="All" selected>All</option>
+                  </select>
+                                </div>
+                                <div class="form-group">
+                                    <select class="my-2 form-control js-searching-form_sort-select" name="sort" aria-label="Sorting">
+                    <option value="rating_desc" selected>Rating (high to low)</option>
+                    <option value="rating_asc">Rating (low to high)</option>
+                    <option value="az">A-Z</option>
+                    <option value="za">Z-A</option>
+                    <option value="year_desc">Year (new to old)</option>
+                    <option value="year_asc">Year (old to new)</option>
+                  </select>
+                                </div>
+                                <button class="btn btn-primary w-100 fw-bold" type="submit">Search</button>
+                            </form>
+                        </section>
+
+                        <section class="mb-4">
+                            <h2>Bookmarked movies</h2>
+                            <ul class="bookmarked-movies list-group">
+
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+
+                <section class="col-md-8">
+                    <h2 class="h2 text-center fw-bold">Search results</h2>
+
+                    <div class="alert alert-info">Use the button on the left to search for a movie</div>
+
+                    <ul class="search-result row list-unstyled">
+
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+
+
+    <!--===== MODAL======= -->
+
+    <section class="movie-info-modal modal fade" id="movie-info-modal" tabindex="-1" aria-labelledby="movie-info-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="movie-info-modal__title h4 modal-title" id="movie-info-title"></h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEMPLATES -->
+    <!-- Search result template -->
+    <template id="search-result-template">
+    <li class="search-result__item movie col-sm-6 mb-3" data-imdb-id="">
+      <div class="card">
+        <img class="movie__poster card-img-top" src="https://picsum.photos/id/870/300/200" alt="" width="300"
+        height="200">
+        
+        <div class="card-body">
+          <h3 class="movie__title h5"></h3>
+          
+          <p class="card-text d-flex align-items-sm-center">
+            <img src="img/calendar.png" alt="Calendar" width="25" height="25">
+            <span class="movie__year ps-2"></span>
+          </p>
+          
+          <p class="card-text d-flex align-items-sm-center">
+            <img src="img/star.png" alt="Star" width="25" height="25">
+            <span class="movie__rating ps-2"></span>
+          </p>
+          
+          <p class="card-text d-flex flex-column flex-md-row flex-wrap justify-content-around">
+            <a class="movie__trailer-link bg-danger d-flex align-items-center m-1 my-xl-0 btn text-light btn-sm" href="" target="_blank">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube pe-1" viewBox="0 0 16 16">
+                <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"></path>
+              </svg>
+              Watch
+              trailer</a>
+              <button class="m-1 my-xl-0 d-flex align-items-center btn btn-outline-primary btn-sm js-movie-modal-opener" type="button"
+              data-bs-toggle="modal" data-bs-target="#movie-info-modal">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-text  pe-1" viewBox="0 0 16 16">
+                <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"></path>
+                <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"></path>
+              </svg>
+              More
+              info</button>
+              <button class="d-flex align-items-center m-1 my-xl-0 btn btn-outline-success btn-sm js-movie-bookmark" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-fill pe-1" viewBox="0 0 16 16">
+                  <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"></path>
+                </svg>
+                Bookmark</button>
+            </p>
+          </div>
+        </div>
+      </li>
+    </template>
+
+    <!-- Bookmarked movie template -->
+    <template id="bookmarked-movie-template">
+      <li class="bookmarked-movie list-group-item">
+        <h3 class="bookmarked-movie__title h6"></h3>
+        
+        <button class="btn btn-sm btn-danger js-remove-bookmarked-movie-button">Remove</button>
+      </li>
+    </template>
+
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/movies.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/script.js"></script>
+</body>
+
+</html>

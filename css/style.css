@@ -1,0 +1,34 @@
+@font-face {
+    font-family: 'Acme';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/acme-v18-latin-regular.woff2') format('woff2'), url('../fonts/acme-v18-latin-regular.woff') format('woff');
+}
+
+body {
+    font-family: 'Acme', sans-serif;
+}
+
+h1:hover {
+    transform: scale(1.1);
+    transition: all 0.2s ease;
+}
+
+h2:hover {
+    transform: scale(1.1);
+    transition: all 0.2s ease;
+}
+
+.movie__poster {
+    object-fit: cover;
+}
+
+
+/* .movie__trailer-link:hover {
+    background-color: red;
+    color: white;
+} */
+
+input {
+    color: blue;
+}
